@@ -1,4 +1,4 @@
-{% comment %} <!-- <?php
+<!-- <?php
 $baseUrl='http://localhost/bootstrap4-apps/ecommerce/';
 ?> -->
 {% load static %}
@@ -17,11 +17,53 @@ $baseUrl='http://localhost/bootstrap4-apps/ecommerce/';
 	<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
 	<!-- Bootstrap 4 JS -->
 	<script type="text/javascript" src="{% static 'bs4/bootstrap.min.js' %}"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<div class="container">
-		  <a class="navbar-brand" href="">Bottle Shop</a>
+		  <a class="navbar-brand" href="">Competition Portal</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -31,11 +73,18 @@ $baseUrl='http://localhost/bootstrap4-apps/ecommerce/';
 		        <a class="nav-link text-white" href="">Home</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/categories.php">Categories</a>
+            <div class="dropdown">
+              <button onclick="myFunction()" class="dropbtn">Competitions</button>
+              <div id="myDropdown" class="dropdown-content">
+                <a class="" href="{% url 'branch-list' %}">Branch</a>
+                <a class="" href="{% url 'category-list' %}">Categories</a>
+              </div>
+            </div>
+
 		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/brands.php">Brands</a>
-		      </li>
+		      {% comment %} <li class="nav-item">
+		        <a class="nav-link text-white" href="{% url 'branch-list' %}">Branch</a>
+		      </li> {% endcomment %}
 		      <li class="nav-item">
 		        <a class="nav-link text-white" href="/cart.php"><i class="fa fa-shopping-cart"></i> Cart (2)</a>
 		      </li>
@@ -89,6 +138,29 @@ $baseUrl='http://localhost/bootstrap4-apps/ecommerce/';
       </div>
     </div>
   </footer>
+
+  <script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    </script>
+
 </body>
 </html>
- {% endcomment %}
+
