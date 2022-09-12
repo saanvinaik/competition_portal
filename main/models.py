@@ -1,10 +1,23 @@
 from django.db import models
-
+from django.utils.html import mark_safe
 # Create your models here.
+class slider(models.Model):
+    img = models.CharField(max_length=200)
+    alt_text = models.CharField(max_length=300)
+
+    class Meta:
+        verbose_name_plural = '1. sliders'
+
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to = "cat_imgs/")
+
+    class Meta:
+        verbose_name_plural = '2. Categories'
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" width = "50" height = "50" />' % (self.image.url))
 
     def __str__(self):
         return self.title
@@ -13,12 +26,22 @@ class Branch(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to = "branch_imgs/")
 
+    class Meta:
+        verbose_name_plural = '3. Branches'
+
     def __str__(self):
         return self.title
+
 
 class Year(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to = "year_imgs/")
+
+    class Meta:
+        verbose_name_plural = '4. Years'
+
+    def iamge_tag(self):
+        return 
 
     def __str__(self):
         return self.title
@@ -27,6 +50,9 @@ class Year(models.Model):
 class Domain(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to = "domain_imgs/")
+
+    class Meta:
+        verbose_name_plural = '5. Domains'
 
     def __str__(self):
         return self.title
@@ -44,13 +70,12 @@ class Competition(models.Model):
     domain = models.ForeignKey(Domain,on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name_plural = '6. Competitions'
+
     def __str__(self):
         return self.title
     
-
-class slider(models.Model):
-    img = models.CharField(max_length=200)
-    alt_text = models.CharField(max_length=300)
 
 # Competition Attributes
 class CompetitionAttribute(models.Model):
@@ -59,6 +84,9 @@ class CompetitionAttribute(models.Model):
     year = models.ForeignKey(Year,on_delete=models.CASCADE)
     # reg_fee = models.ForeignKey(Competition, on_delete=models.CASCADE , related_name='reg_fees')
     reg_fee=models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name_plural = '7. CompetitionAttribute'
 
     def __str__(self):
         return self.competition.title 

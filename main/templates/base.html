@@ -14,30 +14,38 @@ $baseUrl='http://localhost/bootstrap4-apps/ecommerce/';
 	<!-- Bootstrap 4 CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'bs4/bootstrap.min.css' %}" />
 	<!-- Main Jquery -->
+  <link rel="stylesheet" type="text/css" href="{% static 'main_css/style.css' %}" />
+
 	<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
 	<!-- Bootstrap 4 JS -->
 	<script type="text/javascript" src="{% static 'bs4/bootstrap.min.js' %}"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<div class="container">
-		  <a class="navbar-brand" href="">Bottle Shop</a>
+		  <a class="navbar-brand" href="">Competition Portal</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarNav">
 		    <ul class="navbar-nav ml-auto">
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="">Home</a>
+		        <a class="nav-link text-white" href="#">Home</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/categories.php">Categories</a>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'category-list' %}">Categories</a>
+            </li>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/brands.php">Brands</a>
+		        <a class="nav-link text-white" href="{% url 'branch-list' %}">Branch</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/cart.php"><i class="fa fa-shopping-cart"></i> Cart (2)</a>
+		        <a class="nav-link text-white" href="#"><i class="fa fa-shopping-cart"></i>Favourites</a>
 		      </li>
 		      <li class="nav-item">
 		        <a class="nav-link text-white" href="/account.php"><i class="fa fa-user"></i> My Account</a>
@@ -89,6 +97,29 @@ $baseUrl='http://localhost/bootstrap4-apps/ecommerce/';
       </div>
     </div>
   </footer>
+
+  <script>
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+    
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    </script>
+
 </body>
 </html>
 
