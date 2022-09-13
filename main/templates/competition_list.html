@@ -7,83 +7,55 @@
 		<div class="col-md-3">
 			<h3 class="mb-4 border-bottom pb-1">Filters</h3>
 			<!-- Filter 1 -->
-			<div class="card mb-4">
-				<h6 class="card-header">Colors</h6>
-				<div class="list-group list-group-flush">
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						<button class="btn btn-danger"></button>
-					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						<button class="btn btn-dark"></button>
-					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						<button class="btn btn-success"></button>
-					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						<button class="btn btn-warning"></button>
-					</li>
-				</div>
-			</div>
+			
 			<!-- Filter 2 -->
 			<div class="card mb-4">
 				<h6 class="card-header">Categories</h6>
 				<div class="list-group list-group-flush">
+					{% for cat in cats %}
 					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						Category 1
+						<input value="{{cat.category__id}}" type="checkbox" />&nbsp;
+						{{cat.category__title}}
 					</li>
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="card mb-4">
+				<h6 class="card-header">Branches</h6>
+				<div class="list-group list-group-flush">
+					{% for branch in branchs %}
 					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						Category 2
+						<input value="{{branch.branch__id}}" type="checkbox" />&nbsp;
+						{% comment %} <button class="btn btn-danger"></button> {% endcomment %}
+						{{branch.branch__title}}
 					</li>
+					{% endfor %}
+				</div>
+			</div>
+
+			<!-- Filter 3 -->
+			<div class="card mb-4">
+				<h6 class="card-header">Years</h6>
+				<div class="list-group list-group-flush">
+					{% for year in years %}
 					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						Category 3
+						<input value= "{{year.year__id}}" type="checkbox" />&nbsp;
+						{{year.year__title}}
 					</li>
+					{% endfor %}
 				</div>
 			</div>
 			<!-- Filter 3 -->
 			<div class="card mb-4">
-				<h6 class="card-header">Brands</h6>
+				<h6 class="card-header">Domains</h6>
 				<div class="list-group list-group-flush">
+					{% for domain in domains %}
 					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						Brand 1
+						<input value= "{{domain.domain__id}}" type="checkbox" />&nbsp;
+						{{domain.domain__title}}
 					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						Brand 2
-					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						Brand 3
-					</li>
-				</div>
-			</div>
-			<!-- Filter 3 -->
-			<div class="card mb-4">
-				<h6 class="card-header">Sizes</h6>
-				<div class="list-group list-group-flush">
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						< 1 litre
-					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						1-2 litre
-					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						2-3 litre
-					</li>
-					<li class="list-group-item">
-						<input type="checkbox" />&nbsp;
-						3-4 litre
-					</li>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
@@ -96,9 +68,9 @@
 				{% for competition in data_competition %}
 				<div class="col-md-4 mb-4">
 					<div class="card shadow">
-					  <a href="<?php echo $baseUrl; ?>/detail.php"><img src="/media/{{competition.image}}" class="card-img-top" alt="{{competition.title}}"></a>
+					  <a href="/competition/{{competition.slug}}/{{competition.id}}"><img src="/media/{{competition.image}}" class="card-img-top" alt="{{competition.title}}"></a>
 					  <div class="card-body">
-					    <h6 class="card-text"><a href="<?php echo $baseUrl; ?>/detail.php">{{competition.title}}</a></h6>
+					    <h6 class="card-text"><a href="/competition/{{competition.slug}}/{{competition.id}}">{{competition.title}}</a></h6>
 					  </div>
 					  <div class="card-footer">
 					  	<button class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i></button>

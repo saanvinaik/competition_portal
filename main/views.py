@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from .models import Branch, Category , Competition
+from .models import slider,Branch, Category , Competition
 # Create your views here.
 
 #home page
 
 def home(request):
-    return render(request , 'index.html')
+    sliders = slider.objects.all().order_by('-id')
+    data = Competition.objects.filter(is_featured = True).order_by('-id')
+    return render(request , 'index.html' , {'data':data , 'sliders':sliders})
 
 #category
 def category_list(request):
@@ -19,6 +21,19 @@ def branch_list(request):
 
 def competition_list(request):
     data_competition = Competition.objects.all().order_by('-id')
-    return render(request , 'competition_list.html' , {'data_competition':data_competition})
+    cats = Competition.objects.distinct().values('category__title','category__id')
+    branchs = Competition.objects.distinct().values('branch__title','branch_id')
+    years = Competition.objects.distinct().values('year__title','year__id')
+    domains = Competition.objects.distinct().values('domain__title','domain__id')
+    return render(request , 'competition_list.html' ,
+    {
+        'data_competition':data_competition,
+        'cats':cats,
+        'branchs':branchs,
+        'years':years,
+        'domains':domains
+
+    }
+    )
 
 

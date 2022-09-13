@@ -4,20 +4,24 @@
 <!-- Home Slider -->
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    {% for sliders in sliders %}
+    {% if forloop.counter == 1 %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}" class="active"></li>
+    {% else %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}"></li>
+    {% endif %}
+    {% endfor %}
   </ol>
   <div class="carousel-inner">
+    {% for slider in sliders %}
+    {% if forloop.counter == 1 %}
     <div class="carousel-item active">
-      <img src="{% static 'media/images/banners/1.jpg' %}" class="d-block w-100" alt="...">
+      {% else %}
+      <div class="carousel-item">
+      {% endif %}
+      <img src="/media/{{slider.img}}" class="d-block w-100" alt="...">
     </div>
-    <div class="carousel-item">
-      <img src="{% static 'media/images/banners/2.jpg' %}" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="{% static 'media/images/banners/3.jpg' %}" class="d-block w-100" alt="...">
-    </div>
+    {% endfor %}
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -30,14 +34,14 @@
 </div>
 <main class="container my-4">
 	<!-- Featured Products -->
-	<h3 class="my-4 border-bottom pb-1">Featured Products</h3>
+	<h3 class="my-4 border-bottom pb-1">Latest Competitions</h3>
 	<div class="row">
-		
+		{% for competition in data %}
 		<div class="col-md-3 mb-4">
 			<div class="card shadow">
-			  <a href="/detail.php"><img src="{% static 'media/images/1.jpg' %}" class="card-img-top" alt="..."></a>
+        <a href="/competition/{{competition.slug}}/{{competition.id}}"><img src="/media/{{competition.image}}" class="card-img-top" alt="{{competition.title}}"></a>
 			  <div class="card-body">
-			    <h6 class="card-text"><a href="/detail.php">Bottle 1  </a></h6>
+			    <h6 class="card-text"><a href="/competition/{{competition.slug}}/{{competition.id}}">{{competition.title}}</a></h6>
 			  </div>
 			  <div class="card-footer">
 			  	<button class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i></button>
@@ -49,8 +53,9 @@
 			  </div>
 			</div>
 		</div>
+    {% endfor %}
 	</div>
 	<p class="my-4 text-center"><a href="{% url 'competition-list' %}" class="btn btn-dark btn-sm">All Competitions<i class="fa fa-long-arrow-alt-right"></i></a></p>
 </main>
 {% endblock %}
-
+ 
